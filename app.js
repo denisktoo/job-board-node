@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 
 require('dotenv').config();
 
@@ -11,7 +13,7 @@ const applicationRoutes = require('./routes/applicationRoutes');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors());app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(express.json());
 
 // Pretty JSON globally
@@ -44,7 +46,8 @@ app.get('/', (req, res) => {
         getById: 'GET /api/applications/:id'
       },
       system: {
-        health: 'GET /health'
+        health: 'GET /health',
+        docs: 'GET /api-docs'
       }
     }
   });
@@ -54,6 +57,9 @@ app.get('/', (req, res) => {
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
+
+// Swagger docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.use('/api/users', userRoutes);
