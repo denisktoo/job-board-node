@@ -16,7 +16,32 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.json({
     message: 'Job Board API is running',
-    health: '/health'
+    version: '1.0.0',
+    endpoints: {
+      users: {
+        register: 'POST /api/users/register',
+        getAll: 'GET /api/users',
+        getById: 'GET /api/users/:id'
+      },
+      companies: {
+        create: 'POST /api/companies',
+        getAll: 'GET /api/companies',
+        getById: 'GET /api/companies/:id'
+      },
+      jobs: {
+        create: 'POST /api/jobs',
+        getAll: 'GET /api/jobs',
+        getById: 'GET /api/jobs/:id'
+      },
+      applications: {
+        apply: 'POST /api/applications',
+        getAll: 'GET /api/applications',
+        getById: 'GET /api/applications/:id'
+      },
+      system: {
+        health: 'GET /health'
+      }
+    }
   });
 });
 
