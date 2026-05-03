@@ -3,6 +3,11 @@ const cors = require('cors');
 
 require('dotenv').config();
 
+const userRoutes = require('./routes/userRoutes');
+const companyRoutes = require('./routes/companyRoutes');
+const jobRoutes = require('./routes/jobRoutes');
+const applicationRoutes = require('./routes/applicationRoutes');
+
 const app = express();
 
 app.use(cors());
@@ -18,6 +23,11 @@ app.get('/', (req, res) => {
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
+
+app.use('/api/users', userRoutes);
+app.use('/api/companies', companyRoutes);
+app.use('/api/jobs', jobRoutes);
+app.use('/api/applications', applicationRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
