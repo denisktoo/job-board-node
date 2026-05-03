@@ -10,9 +10,14 @@ const applicationRoutes = require('./routes/applicationRoutes');
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// Pretty JSON globally
+app.set('json spaces', 2);
+
+// Root endpoint (API overview)
 app.get('/', (req, res) => {
   res.json({
     message: 'Job Board API is running',
@@ -45,21 +50,25 @@ app.get('/', (req, res) => {
   });
 });
 
+// Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
+// Routes
 app.use('/api/users', userRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/applications', applicationRoutes);
 
+// 404 handler
 app.use((req, res) => {
   res.status(404).json({
     error: 'Route not found'
   });
 });
 
+// Global error handler
 app.use((error, req, res, next) => {
   console.error(error);
 
