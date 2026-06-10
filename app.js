@@ -13,7 +13,7 @@ const applicationRoutes = require('./routes/applicationRoutes');
 const app = express();
 
 // Middleware
-app.use(cors());app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(cors());
 app.use(express.json());
 
 // Pretty JSON globally
@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
     endpoints: {
       users: {
         register: 'POST /api/users/register',
+        login: 'POST /api/users/login',
         getAll: 'GET /api/users',
         getById: 'GET /api/users/:id'
       },

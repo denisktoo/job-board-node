@@ -43,6 +43,35 @@ router.post('/register', userController.register);
 
 /**
  * @swagger
+ * /api/users/login:
+ *   post:
+ *     summary: Login and get a JWT token
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful, returns JWT token
+ *       401:
+ *         description: Invalid credentials
+ */
+router.post('/login', userController.login);
+
+/**
+ * @swagger
  * /api/users:
  *   get:
  *     summary: Get all users
