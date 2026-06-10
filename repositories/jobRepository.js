@@ -20,9 +20,9 @@ const createJob = async (req, res) => {
       });
     }
 
-    if (user.role !== 'employer') {
+    if (user.role !== 'recruiter') {
       return res.status(403).json({
-        error: 'Only employers can create jobs'
+        error: 'Only recruiters can create jobs'
       });
     }
 
